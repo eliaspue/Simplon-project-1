@@ -5,6 +5,14 @@ données = pd.read_csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSC4Kusf
 
 figure = px.pie(données, values='qte', names='region', title='quantité vendue par région')
 
-figure.write_html('ventes-par-region.html')
+venteparproduit = px.pie(données, values='qte', names='produit', title='quantité vendue par produit')
 
-print('ventes-par-région.html généré avec succès !')
+données['ca'] = données['prix'] * données['qte']
+
+chiffreaffaireparproduit = px.bar(données, x='produit', y='ca', title="Chiffre d'affaires par produit")
+
+figure.write_html('ventes-par-region.html')
+venteparproduit.write_html('ventes-par-produit.html')
+chiffreaffaireparproduit.write_html('chiffre-affaire-produit.html')
+
+print('Fichier HTML générés !')
